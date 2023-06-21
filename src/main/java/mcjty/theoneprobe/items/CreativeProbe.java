@@ -10,8 +10,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 public class CreativeProbe extends Item {
 
     public CreativeProbe() {
-        setRegistryName(TheOneProbe.MODID + ".creativeprobe");
-        setRegistryName("creativeprobe");
+        setRegistryName(TheOneProbe.MODID, "creativeprobe");
         setMaxStackSize(1);
         setCreativeTab(TheOneProbe.tabProbe);
     }
