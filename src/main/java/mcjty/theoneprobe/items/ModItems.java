@@ -71,7 +71,7 @@ public class ModItems {
                 }
             }
         };
-        item.setUnlocalizedName(TheOneProbe.MODID + "." + name);
+        item.setRegistryName(TheOneProbe.MODID + "." + name);
         item.setRegistryName(name);
         item.setCreativeTab(TheOneProbe.tabProbe);
         return item;

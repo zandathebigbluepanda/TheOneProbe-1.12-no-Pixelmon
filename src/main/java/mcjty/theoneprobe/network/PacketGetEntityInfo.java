@@ -18,6 +18,7 @@ import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
+import com.pixelmonmod.pixelmon.entities.pixelmon.EntityPixelmon;
 
 import java.util.List;
 import java.util.UUID;
@@ -100,6 +101,9 @@ public class PacketGetEntityInfo implements IMessage {
             }
         } else if (ConfigSetup.needsProbe == PROBE_NEEDEDHARD && !ModItems.hasAProbeSomewhere(player)) {
             // The server says we need a probe but we don't have one in our hands or on our head
+            return null;
+        }
+        if (entity instanceof EntityPixelmon) {
             return null;
         }
 

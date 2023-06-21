@@ -30,6 +30,7 @@ import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
+import com.pixelmonmod.pixelmon.entities.pixelmon.EntityPixelmon;
 import org.apache.commons.lang3.tuple.Pair;
 import org.lwjgl.opengl.GL11;
 
@@ -97,7 +98,7 @@ public class OverlayRenderer {
         EntityPlayerSP entity = Minecraft.getMinecraft().player;
         Vec3d start  = entity.getPositionEyes(partialTicks);
         Vec3d vec31 = entity.getLook(partialTicks);
-        Vec3d end = start.addVector(vec31.x * dist, vec31.y * dist, vec31.z * dist);
+        Vec3d end = start.add(vec31.x * dist, vec31.y * dist, vec31.z * dist);
 
         mouseOver = entity.getEntityWorld().rayTraceBlocks(start, end, ConfigSetup.showLiquids);
         if (mouseOver == null) {
@@ -145,6 +146,9 @@ public class OverlayRenderer {
     private static void renderHUDEntity(ProbeMode mode, RayTraceResult mouseOver, double sw, double sh) {
         Entity entity = mouseOver.entityHit;
         if (entity == null) {
+            return;
+        }
+        if (entity instanceof EntityPixelmon) {
             return;
         }
 //@todo

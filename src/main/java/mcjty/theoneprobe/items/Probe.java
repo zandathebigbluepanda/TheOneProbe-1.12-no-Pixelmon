@@ -17,7 +17,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 public class Probe extends Item {
 
     public Probe() {
-        setUnlocalizedName(TheOneProbe.MODID + ".probe");
+        setRegistryName(TheOneProbe.MODID + ".probe");
         setRegistryName("probe");
         setMaxStackSize(1);
         setCreativeTab(TheOneProbe.tabProbe);

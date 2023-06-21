@@ -38,9 +38,9 @@ public class TheOneProbe {
 
     public static TheOneProbeImp theOneProbeImp = new TheOneProbeImp();
 
-    public static CreativeTabs tabProbe = new CreativeTabs("Probe") {
+    public static final CreativeTabs tabProbe = new CreativeTabs("Probe") {
         @Override
-        public ItemStack getTabIconItem() {
+        public ItemStack createIcon() {
             return new ItemStack(ModItems.probe);
         }
     };

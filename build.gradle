@@ -21,18 +21,13 @@ apply plugin: 'net.minecraftforge.gradle.forge'
 apply plugin: 'maven-publish'
 
 repositories {
-    maven { // The repo from which to get waila
-        name "Mobius Repo"
-        url "https://tehnut.info/maven"
-    }
+
     maven { // JEI
-        url "http://dvs1.progwml6.com/files/maven"
+        name 'DVS1 Maven FS'
+        url 'https://modmaven.k-4u.nl'
     }
     maven { // CompatLayer
         url "http://maven.k-4u.nl"
-    }
-    maven { //Tesla
-        url "http://maven.epoxide.xyz"
     }
     maven {
         name = "sonatype"
@@ -45,6 +40,9 @@ repositories {
     maven {
         name = "TESLA"
         url = "https://maven.mcmoddev.com"
+    }
+    maven {
+        url = "https://www.cursemaven.com"
     }
 }
 
@@ -72,9 +70,15 @@ minecraft {
 }
 
 dependencies {
-    deobfCompile "mezz.jei:jei_${jei_version}"
-    deobfCompile "cofh:RedstoneFlux:${redstoneflux_version}"
-    deobfCompile "net.darkhax.tesla:Tesla-1.12.2:1.0.63"
+    deobfCompile "curse.maven:jei-238222:3040523"
+    deobfCompile "curse.maven:pixelmon-389487:4348446"
+    deobfCompile "curse.maven:tesla-244651:2487959"
+    deobfCompile "curse.maven:redstoneflux-270789:2623090"
+    deobfCompile "curse.maven:enderio1-64578:3328811"
+    deobfCompile "curse.maven:endercore1-231868:2972849"
+    runtime files("E:/.minecraft/realmofstorms/source files/TOPAddons/build/libs/topaddons-1.12.2-1.13.0.jar")
+    runtime files("E:/.minecraft/realmofstorms/source files/TOPExtras-d24b82d30c58c71ed92556200b824c66366d522b/build/libs/topextras-1.12.2-1.0.1.jar")
+
 }
 
 jar {
@@ -84,23 +88,28 @@ jar {
 }
 
 processResources
-{
-    // this will ensure that this task is redone when the versions change.
-    inputs.property "version", project.version
-    inputs.property "mcversion", project.minecraft.version
+        {
+            // this will ensure that this task is redone when the versions change.
+            inputs.property "version", project.version
+            inputs.property "mcversion", project.minecraft.version
 
-    // replace stuff in mcmod.info, nothing else
-    from(sourceSets.main.resources.srcDirs) {
-        include 'mcmod.info'
-                
-        // replace version and mcversion
-        expand 'version':project.version, 'mcversion':project.minecraft.version
-    }
-        
-    // copy everything else, thats not the mcmod.info
-    from(sourceSets.main.resources.srcDirs) {
-        exclude 'mcmod.info'
-    }
+            // replace stuff in mcmod.info, nothing else
+            from(sourceSets.main.resources.srcDirs) {
+                include 'mcmod.info'
+
+                // replace version and mcversion
+                expand 'version':project.version, 'mcversion':project.minecraft.version
+            }
+
+            // copy everything else, thats not the mcmod.info
+            from(sourceSets.main.resources.srcDirs) {
+                exclude 'mcmod.info'
+            }
+        }
+
+task deobfJar(type: Jar) {
+    from sourceSets.main.output
+    classifier = 'deobf'
 }
 
 task apiJar(type: Jar) {
@@ -112,6 +121,7 @@ task apiJar(type: Jar) {
 
 artifacts {
     archives apiJar
+    archives deobfJar
 }
 
 publishing {
